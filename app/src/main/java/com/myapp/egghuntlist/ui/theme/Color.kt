@@ -1,5 +1,6 @@
 package com.myapp.egghuntlist.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -12,3 +13,21 @@ val Pink40 = Color(0xFF7D5260)
 
 val darkBlue = Color(0xFF0F1241)
 val orange = Color(0xFFFFB300)
+
+val orangeDark = Color(0xFFE09723)
+val orangeDarker = Color(0xFFCA7500)
+
+val gradientColors = listOf(
+    Color(0xFFFFD343),
+    Color(0xFFFFD64D),
+    Color(0xFFFFB619)
+)
+
+
+val gradientColor = Brush.verticalGradient(
+    colors = listOf(
+        Color(0xFFFFD343),
+        Color(0xFFE09723),
+        Color(0xFFCA7500)
+    )
+)

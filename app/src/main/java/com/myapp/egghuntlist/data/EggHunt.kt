@@ -13,5 +13,5 @@ val locations = listOf(
     EggHunt("Inside the flower pot"),
     EggHunt("In the mailbox"),
     EggHunt("In the kitchen pantry"),
-    EggHunt("Inside the flower pot"),
+    EggHunt("Inside the flower pot")
 )
