@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.myapp.egghuntlist.data.locations
+import com.myapp.egghuntlist.presentation.CheckListScreen
 import com.myapp.egghuntlist.ui.theme.EggHuntlistTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,28 +22,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             EggHuntlistTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                 CheckListScreen(
+                     locations = locations,
+                     modifier = Modifier.padding(innerPadding)
+                 )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EggHuntlistTheme {
-        Greeting("Android")
     }
 }
