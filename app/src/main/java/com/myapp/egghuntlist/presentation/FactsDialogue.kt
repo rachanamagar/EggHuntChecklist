@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.myapp.egghuntlist.R
 import com.myapp.egghuntlist.data.Facts
 import com.myapp.egghuntlist.data.factList
@@ -39,61 +40,66 @@ import com.myapp.egghuntlist.ui.theme.orange
 
 @Composable
 fun FactDialogue(onDismiss: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(319.dp)
-            .height(373.dp)
-            .background(darkBlue, RoundedCornerShape(12.dp))
-            .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+
+    Dialog(
+        onDismissRequest = { onDismiss() }
     ) {
-        ProgressBar()
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = "Easter Fact!",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily(Font(R.font.nunitoextrab))
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-        Icon(
-            painter = painterResource(R.drawable.crackedegg),
-            contentDescription = "Rolled Egg",
-            tint = Color.Unspecified,
-            modifier = Modifier.size(80.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = factList.random().fact.toQuoted(),
-            color = orange,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 20.sp,
-            letterSpacing = 0.sp,
-
-            fontFamily = FontFamily(Font(R.font.nunitoblack))
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(
+        Column(
             modifier = Modifier
-                .border(1.dp, Color.White, RoundedCornerShape(8.dp))
-                .background(brush = gradientColor, shape = RoundedCornerShape(8.dp))
-                .width(209.dp)
+                .width(319.dp)
+                .height(373.dp)
+                .background(darkBlue, RoundedCornerShape(12.dp))
+                .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = { onDismiss() },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.fillMaxWidth()
+            ProgressBar()
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "Easter Fact!",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.nunitoextrab))
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+            Icon(
+                painter = painterResource(R.drawable.crackedegg),
+                contentDescription = "Rolled Egg",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(80.dp)
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = factList.random().fact.toQuoted(),
+                color = orange,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 20.sp,
+                letterSpacing = 0.sp,
+
+                fontFamily = FontFamily(Font(R.font.nunitoblack))
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.White, RoundedCornerShape(8.dp))
+                    .background(brush = gradientColor, shape = RoundedCornerShape(8.dp))
+                    .width(209.dp)
             ) {
-                Text(
-                    text = "Dismiss",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily(Font(R.font.nunitoextrab))
-                )
+                Button(
+                    onClick = { onDismiss() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Dismiss",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.nunitoextrab))
+                    )
+                }
             }
         }
     }
