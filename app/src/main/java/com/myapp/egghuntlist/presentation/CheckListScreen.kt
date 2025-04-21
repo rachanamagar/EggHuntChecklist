@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,15 +29,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.myapp.egghuntlist.R
 import com.myapp.egghuntlist.data.EggHunt
 import com.myapp.egghuntlist.data.locations
 import com.myapp.egghuntlist.ui.theme.darkBlue
 import com.myapp.egghuntlist.ui.theme.orange
+import com.myapp.egghuntlist.ui.theme.orangeLight
 import kotlinx.coroutines.delay
 
 @Composable
@@ -45,72 +49,78 @@ fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
 
     var checkState by remember { mutableStateOf(List(locations.size) { false }) }
     var selectedIndex by remember { mutableStateOf<Int?>(null) }
-    var isEggLocationSelected by remember { mutableStateOf(false) }
+    var showDialogue by remember { mutableStateOf(false) }
     var isLocationChecked by remember { mutableStateOf(false) }
 
     val eggsFound = checkState.count { it }
 
-    LaunchedEffect(isEggLocationSelected && isLocationChecked) {
+    LaunchedEffect(showDialogue) {
         delay(4000)
-        isLocationChecked = false
-        isEggLocationSelected = false
+        showDialogue = false
     }
     Column(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxSize()
             .background(darkBlue)
-            .padding(20.dp, top = 100.dp),
+            .padding(start = 20.dp, end = 20.dp, top = 40.dp, bottom = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Egg Hunt CheckList",
-            fontSize = 18.sp,
+            text = "Egg Hunt Checklist",
+            fontSize = 24.sp,
             color = orange,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.nunitoextrab))
         )
 
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Pick locations, where you’ve \n found eggs",
-            fontSize = 14.sp,
+            fontSize = 20.sp,
             color = Color.White,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.nunitoextrab))
+
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "$eggsFound/${locations.size} eggs found",
             fontSize = 14.sp,
-            color = orange,
-            fontWeight = FontWeight.Bold
+            color = orangeLight,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.nunitoblack))
         )
         Spacer(modifier = Modifier.height(20.dp))
 
-        LazyColumn(
-            state = rememberLazyListState(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ) {
-            items(locations.indices.toList()) { index ->
-                ListItem(
-                    location = locations[index].locations,
-                    isChecked = checkState[index],
-                    toggleBox = {
-                        checkState = checkState.toMutableList().also {
-                            it[index] = !it[index]
-                        }
-                        isLocationChecked = !checkState[index]
-                        isEggLocationSelected = !isEggLocationSelected
-                    },
-                    onClicked = {
-                        selectedIndex = index
-                    }
+        Column(modifier = Modifier.height(580.dp)) {
+            LazyColumn(
+                state = rememberLazyListState(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+            ) {
+                itemsIndexed(locations) { index, item ->
+                    ListItem(
+                        location = item.locations,
+                        isChecked = checkState[index],
+                        toggleBox = {
+                            checkState = checkState.toMutableList().also {
+                                it[index] = !it[index]
+                            }
+                            isLocationChecked = checkState[index]
+                            showDialogue = true
 
-                )
-                Spacer(modifier = Modifier.height(10.dp))
+                        },
+                        onClicked = {
+                            selectedIndex = index
+                        }
+
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
             }
         }
 
@@ -121,13 +131,19 @@ fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
             colors = ButtonDefaults.buttonColors(
                 containerColor = orange
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
         ) {
-            Text(text = "Reset", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-
+            Text(
+                text = "Reset", fontSize = 14.sp,
+                modifier = Modifier
+                    .padding(4.dp),
+                fontWeight = FontWeight.Bold
+            )
         }
     }
-    if (isEggLocationSelected) {
+    if (showDialogue) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -135,19 +151,17 @@ fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
             contentAlignment = Alignment.Center
         ) {
             if (isLocationChecked) {
-                DialogueScreen(
+                FactDialogue(
                     onDismiss = {
-                        selectedIndex = null
-                        isEggLocationSelected = false
                         isLocationChecked = false
+                        showDialogue = false
                     }
                 )
             } else {
-                FactDialogue(
+                DialogueScreen(
                     onDismiss = {
-                        selectedIndex = null
-                        isEggLocationSelected = false
                         isLocationChecked = false
+                        showDialogue = false
                     }
                 )
             }

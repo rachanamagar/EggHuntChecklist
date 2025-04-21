@@ -13,9 +13,11 @@ val Pink40 = Color(0xFF7D5260)
 
 val darkBlue = Color(0xFF0F1241)
 val orange = Color(0xFFFFB300)
+val orangeLight = Color(0xFFFDD835)
 
 val orangeDark = Color(0xFFE09723)
 val orangeDarker = Color(0xFFCA7500)
+val orangeBg = Color(0xFF894621)
 
 val gradientColors = listOf(
     Color(0xFFFFD343),
