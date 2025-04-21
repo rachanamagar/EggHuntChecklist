@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.myapp.egghuntlist.R
 import com.myapp.egghuntlist.data.EggHunt
+import com.myapp.egghuntlist.data.PreferenceHelper
 import com.myapp.egghuntlist.data.locations
 import com.myapp.egghuntlist.ui.theme.darkBlue
 import com.myapp.egghuntlist.ui.theme.orange
@@ -47,7 +49,10 @@ import kotlinx.coroutines.delay
 @Composable
 fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
 
-    var checkState by remember { mutableStateOf(List(locations.size) { false }) }
+
+    val context = LocalContext.current
+    val preferenceHelper = remember { PreferenceHelper(context) }
+    var checkState by remember { mutableStateOf(preferenceHelper.getAllCheckedList(locations.size)) }
     var selectedIndex by remember { mutableStateOf<Int?>(null) }
     var showDialogue by remember { mutableStateOf(false) }
     var isLocationChecked by remember { mutableStateOf(false) }
@@ -110,6 +115,7 @@ fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
                             checkState = checkState.toMutableList().also {
                                 it[index] = !it[index]
                             }
+                            preferenceHelper.saveCheckedList(index, checkState[index])
                             isLocationChecked = checkState[index]
                             showDialogue = true
 
@@ -123,10 +129,10 @@ fun CheckListScreen(locations: List<EggHunt>, modifier: Modifier) {
                 }
             }
         }
-
         Button(
             onClick = {
                 checkState = List(locations.size) { false }
+                preferenceHelper.resetAll()
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = orange
