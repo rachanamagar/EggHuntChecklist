@@ -26,57 +26,62 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.myapp.egghuntlist.R
 import com.myapp.egghuntlist.ui.theme.darkBlue
 import com.myapp.egghuntlist.ui.theme.gradientColor
 
 @Composable
-fun DialogueScreen(onDismiss:()-> Unit) {
-    Column(
-        modifier = Modifier
-            .width(249.dp)
-            .height(265.dp)
-            .background(darkBlue, RoundedCornerShape(12.dp))
-            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 30.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+fun DialogueScreen(onDismiss: () -> Unit) {
+    Dialog(
+        onDismissRequest = onDismiss
     ) {
-        ProgressBar()
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(
-            text = " Oops, the egg rolled away!",
-            color = Color.White,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily(Font(R.font.nunitoextrab))
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-        Icon(
-            painter = painterResource(R.drawable.rolledegg),
-            contentDescription = "Rolled Egg",
-            tint = Color.Unspecified,
-            modifier = Modifier.size(80.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Box(
+        Column(
             modifier = Modifier
-                .border(1.dp, Color.White, RoundedCornerShape(8.dp))
-                .background(brush = gradientColor, shape = RoundedCornerShape(8.dp))
-                .width(209.dp)
+                .width(249.dp)
+                .height(265.dp)
+                .background(darkBlue, RoundedCornerShape(12.dp))
+                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = { onDismiss()},
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.fillMaxWidth()
+            ProgressBar()
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = " Oops, the egg rolled away!",
+                color = Color.White,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.nunitoextrab))
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Icon(
+                painter = painterResource(R.drawable.rolledegg),
+                contentDescription = "Rolled Egg",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(80.dp)
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.White, RoundedCornerShape(8.dp))
+                    .background(brush = gradientColor, shape = RoundedCornerShape(8.dp))
+                    .width(209.dp)
             ) {
-                Text(
-                    text = "Dismiss",
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily(Font(R.font.nunitoextrab))
-                )
+                Button(
+                    onClick = { onDismiss() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Dismiss",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.nunitoextrab))
+                    )
+                }
             }
         }
     }
