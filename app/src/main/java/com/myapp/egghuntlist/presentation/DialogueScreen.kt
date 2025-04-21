@@ -20,9 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.myapp.egghuntlist.R
 import com.myapp.egghuntlist.ui.theme.darkBlue
 import com.myapp.egghuntlist.ui.theme.gradientColor
@@ -34,16 +37,20 @@ fun DialogueScreen(onDismiss:()-> Unit) {
             .width(249.dp)
             .height(265.dp)
             .background(darkBlue, RoundedCornerShape(12.dp))
-            .padding(10.dp, top = 30.dp),
+            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        ProgressBar()
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = " Oops, the egg rolled away!",
             color = Color.White,
-            fontWeight = FontWeight.Bold
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.nunitoextrab))
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         Icon(
             painter = painterResource(R.drawable.rolledegg),
             contentDescription = "Rolled Egg",
@@ -67,7 +74,8 @@ fun DialogueScreen(onDismiss:()-> Unit) {
             ) {
                 Text(
                     text = "Dismiss",
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily(Font(R.font.nunitoextrab))
                 )
             }
         }

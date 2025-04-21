@@ -19,8 +19,12 @@ val factList = listOf(
     Facts("The world's most expensive chocolate egg, made by a luxury chocolatier, was valued at over €144,000."),
     Facts("In Greece, red eggs are cracked against each other in a game called \"tsougrisma,\" symbolizing the resurrection."),
     Facts("In some cultures, Easter eggs are hidden in gardens and parks for children to find, promoting outdoor activity."),
+)
 
-    )
+fun String.toQuoted(): String{
+    return "\"${this}\""
+}
+
 
 
 
