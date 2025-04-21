@@ -213,7 +213,8 @@ fun ListItem(
             Text(
                 text = location,
                 color = Color.White,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.nunitoblack))
             )
         }
     }

@@ -46,8 +46,7 @@ fun FactDialogue(onDismiss: () -> Unit) {
     ) {
         Column(
             modifier = Modifier
-                .width(319.dp)
-                .height(373.dp)
+                .fillMaxWidth()
                 .background(darkBlue, RoundedCornerShape(12.dp))
                 .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally

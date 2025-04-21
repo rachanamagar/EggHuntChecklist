@@ -38,8 +38,7 @@ fun DialogueScreen(onDismiss: () -> Unit) {
     ) {
         Column(
             modifier = Modifier
-                .width(249.dp)
-                .height(265.dp)
+                .fillMaxWidth()
                 .background(darkBlue, RoundedCornerShape(12.dp))
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally
